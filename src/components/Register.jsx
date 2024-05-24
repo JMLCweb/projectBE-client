@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -31,6 +32,15 @@ const Register = () => {
   return (
     <form onSubmit={handleRegister}>
       <h2>Register</h2>
+      <label>
+        Name:
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </label>
       <label>
         Email:
         <input
