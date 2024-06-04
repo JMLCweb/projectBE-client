@@ -1,44 +1,64 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { HeaderContainer, Ul, Button } from "./headerStyle";
 
 const Header = () => {
   const navigate = useNavigate();
 
+  const HandleHome = () => {
+    navigate("/");
+  };
+
+  const handleUsers = () => {
+    navigate("/users");
+  };
+
+  const handleProducts = () => {
+    navigate("/products");
+  };
+
   const handleLogin = () => {
-    navigate("/login");
+    navigate("/admin/login");
   };
 
   const handleRegister = () => {
-    navigate("/register");
+    navigate("admin/register");
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/users/login");
+    navigate("/");
+  };
+  const handleAdmins = () => {
+    navigate("/admins");
   };
 
   return (
-    <header>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-          <li>
-            <Link to="/products">Products</Link>
-          </li>
-          <li>
-            <button onClick={handleRegister}>Register</button>
-          </li>
-          <li>
-            <button onClick={handleLogin}>Login</button>
-          </li>
-          <li>
-            <button onClick={handleLogout}>Logout</button>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <HeaderContainer>
+      <Ul>
+        <li>
+          <Button onClick={HandleHome}>Home</Button>{" "}
+        </li>
+        <li>
+          <Button onClick={handleAdmins}>Admins</Button>{" "}
+        </li>
+        <li>
+          <Button onClick={handleUsers}>Users</Button>
+        </li>
+        <li>
+          <Button onClick={handleProducts}>Products</Button>{" "}
+        </li>
+        <li>
+          <Button onClick={handleRegister}>Register</Button>
+        </li>
+        <li>
+          <Button onClick={handleLogin}>Login</Button>
+        </li>
+        <li>
+          <Button onClick={handleLogout}>Logout</Button>
+        </li>
+      </Ul>
+    </HeaderContainer>
   );
 };
 
