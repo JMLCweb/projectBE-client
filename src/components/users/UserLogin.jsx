@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserLogin = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +18,9 @@ const UserLogin = ({ history }) => {
       });
       const data = await response.json();
       localStorage.setItem("token", data.token);
-      history.push("/products");
+      localStorage.setItem("tokenExpiration", data.tokenExpiration);
+
+      navigate("/shop/products");
     } catch (error) {
       console.error("Login failed:", error);
     }

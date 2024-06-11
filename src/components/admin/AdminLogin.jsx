@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import AdminRegister from "./AdminRegister";
 import { useNavigate } from "react-router-dom";
+import "./adminLogin.css"; // Importe o arquivo CSS aqui
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -21,31 +23,36 @@ const AdminLogin = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("tokenExpiration", data.tokenExpiration);
 
-      navigate("/products");
+      navigate("/admin");
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <h2>Admin Login</h2>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className="admin-login-container">
+      <form onSubmit={handleLogin}>
+        <h2>Admin Login</h2>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+      <div className="register-link">
+        <AdminRegister></AdminRegister>
+      </div>
+    </div>
   );
 };
 

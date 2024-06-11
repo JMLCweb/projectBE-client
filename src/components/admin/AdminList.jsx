@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditAdminForm from "./EditAdminForm";
 import api from "../../services/api";
+import "./adminList.css";
 
 const AdminList = () => {
   const [admins, setAdmins] = useState([]);
@@ -42,7 +43,7 @@ const AdminList = () => {
   };
 
   return (
-    <div>
+    <div className="admin-list-container">
       <h2>Admin List</h2>
       {editingAdmin ? (
         <EditAdminForm
@@ -52,14 +53,24 @@ const AdminList = () => {
           fetchAdmins={fetchAdmins}
         />
       ) : (
-        <ul>
+        <ul className="admin-list">
           {admins.map((admin) => (
             <li key={admin._id}>
               <div>
                 <h3>{admin.name}</h3>
                 <p>{admin.email}</p>
-                <button onClick={() => handleEdit(admin)}>Edit</button>
-                <button onClick={() => handleDelete(admin._id)}>Delete</button>
+                <button
+                  className="edit-button"
+                  onClick={() => handleEdit(admin)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(admin._id)}
+                >
+                  Delete
+                </button>
               </div>
             </li>
           ))}

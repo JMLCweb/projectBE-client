@@ -1,0 +1,54 @@
+.home {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.home h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.home h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.columns-container {
+  display: flex;
+  gap: 20px;
+}
+
+.error {
+  text-align: center;
+  color: #d9534f;
+  padding: 20px;
+  border: 1px solid #d9534f;
+  border-radius: 5px;
+  margin: 20px;
+}
+
+.error h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.error p {
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
+
+.error button {
+  padding: 10px 20px;
+  font-size: 1em;
+  color: white;
+  background-color: #d9534f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.error button:hover {
+  background-color: #c9302c;
+}

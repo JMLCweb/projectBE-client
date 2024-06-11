@@ -6,53 +6,29 @@ const Header = () => {
   const navigate = useNavigate();
 
   const HandleHome = () => {
-    navigate("/");
-  };
-
-  const handleUsers = () => {
-    navigate("/users");
-  };
-
-  const handleProducts = () => {
-    navigate("/products");
+    navigate("/admin");
   };
 
   const handleLogin = () => {
     navigate("/admin/login");
   };
 
-  const handleRegister = () => {
-    navigate("admin/register");
-  };
-
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/");
-  };
-  const handleAdmins = () => {
-    navigate("/admins");
+    localStorage.removeItem("tokenExpiration");
+    navigate("/admin");
+    window.location.reload();
   };
 
   return (
     <HeaderContainer>
       <Ul>
         <li>
-          <Button onClick={HandleHome}>Home</Button>{" "}
+          <Button onClick={HandleHome}>Dashboard</Button>
         </li>
+
         <li>
-          <Button onClick={handleAdmins}>Admins</Button>{" "}
-        </li>
-        <li>
-          <Button onClick={handleUsers}>Users</Button>
-        </li>
-        <li>
-          <Button onClick={handleProducts}>Products</Button>{" "}
-        </li>
-        <li>
-          <Button onClick={handleRegister}>Register</Button>
-        </li>
-        <li>
-          <Button onClick={handleLogin}>Login</Button>
+          <Button onClick={handleLogin}>SignIn/Up</Button>
         </li>
         <li>
           <Button onClick={handleLogout}>Logout</Button>

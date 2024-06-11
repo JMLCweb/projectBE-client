@@ -1,0 +1,51 @@
+.admin-login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #504b4b;
+}
+
+.admin-login-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.admin-login-container input[type="email"],
+.admin-login-container input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.admin-login-container button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.admin-login-container button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.admin-login-container .register-link {
+  text-align: center;
+}
+
+.admin-login-container .register-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.admin-login-container .register-link a:hover {
+  text-decoration: underline;
+}

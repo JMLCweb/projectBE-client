@@ -50,6 +50,47 @@ const api = {
     }
     return data;
   },
+
+  fetchOrders: async () => {
+    try {
+      const response = await api.get("http://localhost:3000/orders");
+      return response;
+    } catch (error) {
+      throw new Error("Failed to fetch orders. Please try again.");
+    }
+  },
+
+  updateOrderStatus: async (userId, orderId, updatedData) => {
+    try {
+      const response = await api.put(
+        `http://localhost:3000/orders/${userId}/${orderId}`,
+        updatedData
+      );
+      return response;
+    } catch (error) {
+      throw new Error("Failed to update order status. Please try again.");
+    }
+  },
+
+  deleteOrder: async (orderId) => {
+    const response = await api.delete(
+      `http://localhost:3000/orders/${orderId}`
+    );
+    return response;
+  },
+  moveOrderToHistory: async (userId, order, orderId) => {
+    const response = await api.post(
+      `http://localhost:3000/orders/${userId}/${orderId}`,
+      order
+    );
+    return response;
+  },
+  addToCart: async (userId, product) => {
+    const response = await api.post(`http://localhost:3000/cart/${userId}`, {
+      product,
+    });
+    return response;
+  },
 };
 
 export default api;

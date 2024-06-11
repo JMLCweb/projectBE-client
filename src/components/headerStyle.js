@@ -3,18 +3,17 @@ import { Link } from "react-router-dom";
 
 export const HeaderContainer = styled.header`
   color: white;
+  width: 100%;
+
   height: 100%;
   display: flex;
-  justify-content: space-around;
-  padding: 20px;
-
   justify-content: center;
+  padding: 20px;
 `;
 
 export const Ul = styled.ul`
   list-style: none;
   display: flex;
-
   gap: 15px;
   margin: 0;
   padding: 0;

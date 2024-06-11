@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditUserForm from "./EditUserForm";
 import api from "../../services/api";
+import "./UserList.css";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -35,14 +36,14 @@ const UserList = () => {
   const handleDelete = async (userId) => {
     try {
       await api.delete(`http://localhost:3000/users/${userId}`);
-      fetchUsers(); // Refresh the user list after deleting
+      fetchUsers();
     } catch (error) {
       console.error("Failed to delete user", error.message);
     }
   };
 
   return (
-    <div>
+    <div className="user-list-container">
       <h2>User List</h2>
       {editingUser ? (
         <EditUserForm
@@ -52,7 +53,7 @@ const UserList = () => {
           fetchUsers={fetchUsers}
         />
       ) : (
-        <ul>
+        <ul className="user-list">
           {users.map((user) => (
             <li key={user._id}>
               <div>
@@ -61,15 +62,40 @@ const UserList = () => {
                 <h4>Cart:</h4>
                 {user.cart && user.cart.length > 0 ? (
                   <ul>
-                    {user.cart.map((cartItem) => (
-                      <li key={cartItem._id}>
-                        Product ID: {cartItem.productId}, Quantity:{" "}
+                    {user.cart.map((cartItem, cartIndex) => (
+                      <li key={`${cartItem.productId}-${cartIndex}`}>
+                        Product ID: {cartItem.productId}, Quantity:
                         {cartItem.quantity}
                       </li>
                     ))}
                   </ul>
                 ) : (
                   <p>Cart is empty</p>
+                )}
+                <h4>Orders:</h4>
+                {user.orders && user.orders.length > 0 ? (
+                  <ul>
+                    {user.orders.map((order, orderIndex) => (
+                      <li key={order._id || orderIndex}>
+                        <p>
+                          Order Date:
+                          {new Date(order.orderDate).toLocaleString()}
+                        </p>
+                        <p>Status: {order.status}</p>
+                        <h5>Items:</h5>
+                        <ul>
+                          {order.items.map((item, itemIndex) => (
+                            <li key={`${item.productId}-${itemIndex}`}>
+                              Product ID: {item.productId}, Quantity:
+                              {item.quantity}
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No orders</p>
                 )}
                 <button onClick={() => handleEdit(user)}>Edit</button>
                 <button onClick={() => handleDelete(user._id)}>Delete</button>

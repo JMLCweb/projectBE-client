@@ -55,7 +55,7 @@ const ProductList = () => {
   const handleDelete = async (productId) => {
     try {
       await api.delete(`http://localhost:3000/products/${productId}`);
-      fetchProducts(); // Refresh the product list after deleting
+      fetchProducts();
     } catch (error) {
       console.error("Failed to delete product", error.message);
     }

@@ -5,6 +5,7 @@ const EditAdminForm = ({ admin, onSave, onCancel, fetchAdmins }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    password: "",
   });
 
   useEffect(() => {
@@ -31,8 +32,8 @@ const EditAdminForm = ({ admin, onSave, onCancel, fetchAdmins }) => {
         `http://localhost:3000/godmode/update/${admin._id}`,
         formData
       );
-      fetchAdmins(); // Refresh the admin list after editing
-      onSave(); // Reset `editingAdmin` to null to exit edit mode
+      fetchAdmins();
+      onSave();
     } catch (error) {
       console.error("Failed to update admin", error.message);
     }
@@ -56,6 +57,15 @@ const EditAdminForm = ({ admin, onSave, onCancel, fetchAdmins }) => {
           type="email"
           name="email"
           value={formData.email}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Password:
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
           onChange={handleChange}
         />
       </label>
