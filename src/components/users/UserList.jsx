@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import EditUserForm from "./EditUserForm";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+
 import "./UserList.css";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
+  const navigate = useNavigate();
 
   const fetchUsers = async () => {
     try {
@@ -42,8 +45,27 @@ const UserList = () => {
     }
   };
 
+  const HandleUsers = () => {
+    navigate("/users");
+  };
+
+  const handleOrders = () => {
+    navigate("/orders");
+  };
+
+  const handleProducts = () => {
+    navigate("/products");
+  };
+  const handleDashboard = () => {
+    navigate("/admin");
+  };
+
   return (
     <div className="user-list-container">
+      <button onClick={HandleUsers}>Users</button>
+      <button onClick={handleOrders}>Orders</button>
+      <button onClick={handleProducts}>Products</button>
+      <button onClick={handleDashboard}>Dashboard</button>
       <h2>User List</h2>
       {editingUser ? (
         <EditUserForm

@@ -1,40 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HeaderContainer, Ul, Button } from "./headerStyle";
+import { decodeToken } from "../services/jwtUtils";
+
+import "./header.css";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const HandleHome = () => {
-    navigate("/admin");
-  };
+  useEffect(() => {
+    const decodedToken = decodeToken();
+    setIsLoggedIn(!!decodedToken);
+  }, [setIsLoggedIn]);
 
   const handleLogin = () => {
-    navigate("/admin/login");
+    navigate("/login");
+  };
+
+  const handleShop = () => {
+    navigate("/shop");
+  };
+
+  const handleCart = () => {
+    navigate("/cart");
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("tokenExpiration");
-    navigate("/admin");
+    setIsLoggedIn(false);
+    navigate("/shop");
     window.location.reload();
   };
 
   return (
-    <HeaderContainer>
-      <Ul>
+    <div className="header">
+      <ul>
         <li>
-          <Button onClick={HandleHome}>Dashboard</Button>
+          <button onClick={handleShop}>Shop</button>
         </li>
-
-        <li>
-          <Button onClick={handleLogin}>SignIn/Up</Button>
-        </li>
-        <li>
-          <Button onClick={handleLogout}>Logout</Button>
-        </li>
-      </Ul>
-    </HeaderContainer>
+        {!isLoggedIn && (
+          <li>
+            <button onClick={handleLogin}>SignIn/Up</button>
+          </li>
+        )}
+        {isLoggedIn && (
+          <>
+            <li>
+              <button onClick={handleCart}>Cart</button>
+            </li>
+            <li>
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          </>
+        )}
+      </ul>
+    </div>
   );
 };
 

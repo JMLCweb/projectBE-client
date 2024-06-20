@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import EditProductForm from "./EditProductForm";
 import AddProductForm from "./AddProductForm";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
+import "./productList.css"; // Import the CSS file here
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [addingProduct, setAddingProduct] = useState(false);
+
+  const navigate = useNavigate();
 
   const fetchProducts = async () => {
     try {
@@ -52,6 +56,21 @@ const ProductList = () => {
     fetchProducts();
   };
 
+  const HandleUsers = () => {
+    navigate("/users");
+  };
+
+  const handleOrders = () => {
+    navigate("/orders");
+  };
+
+  const handleProducts = () => {
+    navigate("/products");
+  };
+  const handleDashboard = () => {
+    navigate("/admin");
+  };
+
   const handleDelete = async (productId) => {
     try {
       await api.delete(`http://localhost:3000/products/${productId}`);
@@ -62,8 +81,14 @@ const ProductList = () => {
   };
 
   return (
-    <div>
+    <div className="product-list-container">
+      <button onClick={HandleUsers}>Users</button>
+      <button onClick={handleOrders}>Orders</button>
+      <button onClick={handleProducts}>Products</button>
+      <button onClick={handleDashboard}>Dashboard</button>
+
       <h2>Product List</h2>
+
       <button onClick={handleAdd}>Add Product</button>
       {addingProduct ? (
         <AddProductForm
@@ -79,7 +104,7 @@ const ProductList = () => {
           fetchProducts={fetchProducts}
         />
       ) : (
-        <ul>
+        <ul className="product-list">
           {products.map((product) => (
             <li key={product._id}>
               <div>

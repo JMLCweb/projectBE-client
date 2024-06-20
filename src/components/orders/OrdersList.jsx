@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import EditOrderForm from "./EditOrderForm";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+
 import "./ordersList.css"; // Import the CSS file here
 
 const OrdersList = () => {
   const [orders, setOrders] = useState([]);
   const [editingOrder, setEditingOrder] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchOrders();
@@ -74,9 +77,27 @@ const OrdersList = () => {
   const handleCancelEditOrder = () => {
     setEditingOrder(null);
   };
+  const HandleUsers = () => {
+    navigate("/users");
+  };
+
+  const handleOrders = () => {
+    navigate("/orders");
+  };
+
+  const handleProducts = () => {
+    navigate("/products");
+  };
+  const handleDashboard = () => {
+    navigate("/admin");
+  };
 
   return (
     <div className="orders-list-container">
+      <button onClick={HandleUsers}>Users</button>
+      <button onClick={handleOrders}>Orders</button>
+      <button onClick={handleProducts}>Products</button>
+      <button onClick={handleDashboard}>Dashboard</button>
       <h2>Orders List</h2>
       {error && <p className="error-message">{error}</p>}
       {editingOrder && (

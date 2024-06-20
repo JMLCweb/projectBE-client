@@ -18,14 +18,20 @@ const AdminLogin = () => {
         },
         body: JSON.stringify({ email, password }),
       });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Login failed");
+      }
       const data = await response.json();
+      console.log("Data received from server:", data); // Verifica o que está sendo recebido do servidor
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem("tokenExpiration", data.tokenExpiration);
 
       navigate("/admin");
+      window.location.reload();
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Login failed:", error.message);
+      alert(error.message);
     }
   };
 
