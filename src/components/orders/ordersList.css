@@ -1,30 +1,44 @@
 .orders-list-container {
-  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
 }
 
 .orders-list-container h2 {
   text-align: center;
-  color: #333;
+  color: #ffffff;
   margin-bottom: 20px;
+  font-size: 1.5em;
+  font-weight: 600;
 }
 
 .orders-list {
   list-style: none;
   padding: 0;
-  color: #333;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .orders-list li {
-  background-color: #fff;
+  flex: 1 1 calc(33.333% - 30px);
+  box-sizing: border-box;
+  background-color: #ffffff;
   padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.orders-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .orders-list li h3,
@@ -32,41 +46,58 @@
 .orders-list li h5 {
   margin: 0;
   margin-bottom: 10px;
-  color: #333;
+  font-size: 1.2em;
+  color: #3f8ae0;
+  font-weight: 500;
 }
 
 .orders-list li ul {
   list-style: none;
   padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .orders-list li ul li {
-  background-color: #f1f1f1;
+  background-color: #9c8a8a;
   padding: 10px;
   margin-bottom: 5px;
   border-radius: 4px;
 }
 
 .orders-list li button {
-  padding: 5px 10px;
+  padding: 8px 12px;
   margin-top: 10px;
   border: none;
-  border-radius: 4px;
+  color: #45a049;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 0.9em;
+  font-weight: 500;
 }
 
 .orders-list li button:hover {
-  background-color: #ddd;
+  transform: translateY(-2px);
 }
 
 .orders-list li button.edit-button {
   background-color: #4caf50;
-  color: rgb(0, 0, 0);
+  color: white;
 }
 
 .orders-list li button.edit-button:hover {
   background-color: #45a049;
+}
+
+.orders-list li button.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.orders-list li button.delete-button:hover {
+  background-color: #e53935;
 }
 
 .error-message {

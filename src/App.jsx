@@ -5,17 +5,18 @@ import AdminRegister from "./components/admin/AdminRegister";
 import ProductList from "./components/product/ProductList";
 import UserList from "./components/users/UserList";
 import Dasboard from "./components/Dasboard";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import Client from "./components/client/Client";
 import ProductsClient from "./components/client/ProductsClient";
 import OrdersList from "./components/orders/OrdersList";
 import Cart from "./components/client/Cart";
-
+import Footer from "./components/footer/Footer";
 import "./app.css";
 
 const App = () => {
   return (
     <div className="App">
+      <Header></Header>
       <Routes>
         <Route path="/cart" element={<Cart />} />
         <Route path="/admin" element={<Dasboard />} />
@@ -27,6 +28,9 @@ const App = () => {
         <Route path="/users" element={<UserList />} />
         <Route path="/products" element={<ProductList />} />
       </Routes>
+      <div className="app-footer">
+        <Footer></Footer>
+      </div>
     </div>
   );
 };

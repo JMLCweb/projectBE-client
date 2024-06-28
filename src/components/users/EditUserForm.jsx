@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api";
+import "./EditUserForm.css";
 
 const EditUserForm = ({ user, onSave, onCancel, fetchUsers }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    cart: [],
+    password: "",
   });
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const EditUserForm = ({ user, onSave, onCancel, fetchUsers }) => {
       setFormData({
         name: user.name,
         email: user.email,
-        cart: user.cart,
+        password: "", // A senha não é carregada por razões de segurança, o admin deve inserir uma nova se quiser mudar
       });
     }
   }, [user]);
@@ -26,35 +27,13 @@ const EditUserForm = ({ user, onSave, onCancel, fetchUsers }) => {
     }));
   };
 
-  const handleCartChange = (index, field, value) => {
-    const updatedCart = formData.cart.map((item, i) =>
-      i === index ? { ...item, [field]: value } : item
-    );
-    setFormData((prevData) => ({
-      ...prevData,
-      cart: updatedCart,
-    }));
-  };
-
-  const handleAddCartItem = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      cart: [...prevData.cart, { productId: "", quantity: 1 }],
-    }));
-  };
-
-  const handleRemoveCartItem = (index) => {
-    const updatedCart = formData.cart.filter((_, i) => i !== index);
-    setFormData((prevData) => ({
-      ...prevData,
-      cart: updatedCart,
-    }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`http://localhost:3000/users/update/${user._id}`, formData);
+      await api.put(
+        `http://localhost:3000/users/update/admin/${user._id}`,
+        formData
+      );
       fetchUsers();
       onSave();
     } catch (error) {
@@ -63,64 +42,43 @@ const EditUserForm = ({ user, onSave, onCancel, fetchUsers }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>Edit User</h3>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </label>
+    <div className="edit-user-form-container">
+      <form className="edit-user-form" onSubmit={handleSubmit}>
+        <h3>Edit User</h3>
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </label>
 
-      <h3>Cart</h3>
-      {formData.cart.map((item, index) => (
-        <div key={index}>
-          <label>
-            Product ID:
-            <input
-              type="text"
-              value={item.productId}
-              onChange={(e) =>
-                handleCartChange(index, "productId", e.target.value)
-              }
-            />
-          </label>
-          <label>
-            Quantity:
-            <input
-              type="number"
-              value={item.quantity}
-              onChange={(e) =>
-                handleCartChange(index, "quantity", e.target.value)
-              }
-            />
-          </label>
-          <button type="button" onClick={() => handleRemoveCartItem(index)}>
-            Remove
-          </button>
-        </div>
-      ))}
-      <button type="button" onClick={handleAddCartItem}>
-        Add Cart Item
-      </button>
-
-      <button type="submit">Save</button>
-      <button type="button" onClick={onCancel}>
-        Cancel
-      </button>
-    </form>
+        <button type="submit">Save</button>
+        <button type="button" onClick={onCancel}>
+          Cancel
+        </button>
+      </form>
+    </div>
   );
 };
 

@@ -23,7 +23,7 @@ const AdminLogin = () => {
         throw new Error(errorData.message || "Login failed");
       }
       const data = await response.json();
-      console.log("Data received from server:", data); // Verifica o que está sendo recebido do servidor
+      console.log("Data received from server:", data);
 
       localStorage.setItem("token", data.token);
 

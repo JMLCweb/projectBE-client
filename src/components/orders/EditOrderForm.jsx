@@ -25,7 +25,8 @@ const EditOrderForm = ({ order, onSave, onCancel, error }) => {
         </label>
         <label>
           Notes:
-          <input
+          <textarea
+            className="notes"
             type="text"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}

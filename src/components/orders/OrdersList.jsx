@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
 import EditOrderForm from "./EditOrderForm";
 import api from "../../services/api";
-import { useNavigate } from "react-router-dom";
-
-import "./ordersList.css"; // Import the CSS file here
+import "./ordersList.css";
 
 const OrdersList = () => {
   const [orders, setOrders] = useState([]);
   const [editingOrder, setEditingOrder] = useState(null);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
 
   const fetchOrders = async () => {
     try {
@@ -52,15 +45,20 @@ const OrdersList = () => {
   };
 
   const handleDeleteOrder = async (orderId) => {
-    try {
-      await api.deleteOrder(orderId);
-      fetchOrders();
-    } catch (error) {
-      console.error("Error deleting order:", error);
-      setError("Failed to delete order. Please try again.");
-      setTimeout(() => {
-        setError(null);
-      }, 5000);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this product?"
+    );
+    if (confirmDelete) {
+      try {
+        await api.deleteOrder(orderId);
+        fetchOrders();
+      } catch (error) {
+        console.error("Error deleting order:", error);
+        setError("Failed to delete order. Please try again.");
+        setTimeout(() => {
+          setError(null);
+        }, 5000);
+      }
     }
   };
 
@@ -77,28 +75,23 @@ const OrdersList = () => {
   const handleCancelEditOrder = () => {
     setEditingOrder(null);
   };
-  const HandleUsers = () => {
-    navigate("/users");
-  };
 
-  const handleOrders = () => {
-    navigate("/orders");
-  };
-
-  const handleProducts = () => {
-    navigate("/products");
-  };
-  const handleDashboard = () => {
-    navigate("/admin");
-  };
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   return (
     <div className="orders-list-container">
-      <button onClick={HandleUsers}>Users</button>
-      <button onClick={handleOrders}>Orders</button>
-      <button onClick={handleProducts}>Products</button>
-      <button onClick={handleDashboard}>Dashboard</button>
       <h2>Orders List</h2>
+      <p className="intro">
+        Welcome to the Orders Management Page.
+        <br></br>
+        Here, you can view all the orders placed by users, update their status,
+        add notes, and even move completed orders to the history.
+        <br></br>
+        Use the "Edit" button to modify the order details or the "Delete" button
+        to remove an order from the system.
+      </p>
       {error && <p className="error-message">{error}</p>}
       {editingOrder && (
         <EditOrderForm

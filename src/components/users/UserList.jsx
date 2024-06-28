@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import EditUserForm from "./EditUserForm";
 import api from "../../services/api";
-import { useNavigate } from "react-router-dom";
 
 import "./UserList.css";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
-  const navigate = useNavigate();
 
   const fetchUsers = async () => {
     try {
@@ -37,36 +35,32 @@ const UserList = () => {
   };
 
   const handleDelete = async (userId) => {
-    try {
-      await api.delete(`http://localhost:3000/users/${userId}`);
-      fetchUsers();
-    } catch (error) {
-      console.error("Failed to delete user", error.message);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this product?"
+    );
+    if (confirmDelete) {
+      try {
+        await api.delete(`http://localhost:3000/users/delete/${userId}`);
+        fetchUsers();
+      } catch (error) {
+        console.error("Failed to delete user", error.message);
+      }
     }
-  };
-
-  const HandleUsers = () => {
-    navigate("/users");
-  };
-
-  const handleOrders = () => {
-    navigate("/orders");
-  };
-
-  const handleProducts = () => {
-    navigate("/products");
-  };
-  const handleDashboard = () => {
-    navigate("/admin");
   };
 
   return (
     <div className="user-list-container">
-      <button onClick={HandleUsers}>Users</button>
-      <button onClick={handleOrders}>Orders</button>
-      <button onClick={handleProducts}>Products</button>
-      <button onClick={handleDashboard}>Dashboard</button>
       <h2>User List</h2>
+      <p className="intro">
+        Welcome to the User Management Page.
+        <br></br>
+        Here, you can view, edit, and delete users. You can also see the details
+        of their carts and orders.
+        <br></br>
+        Use the "Edit" button to modify user information or the "Delete" button
+        to remove a user from the system.
+      </p>
+
       {editingUser ? (
         <EditUserForm
           user={editingUser}
@@ -86,7 +80,7 @@ const UserList = () => {
                   <ul>
                     {user.cart.map((cartItem, cartIndex) => (
                       <li key={`${cartItem.productId}-${cartIndex}`}>
-                        Product ID: {cartItem.productId}, Quantity:
+                        Product ID: {cartItem.productId} - Quantity:
                         {cartItem.quantity}
                       </li>
                     ))}
@@ -119,8 +113,18 @@ const UserList = () => {
                 ) : (
                   <p>No orders</p>
                 )}
-                <button onClick={() => handleEdit(user)}>Edit</button>
-                <button onClick={() => handleDelete(user._id)}>Delete</button>
+                <button
+                  className="edit-button"
+                  onClick={() => handleEdit(user)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(user._id)}
+                >
+                  Delete
+                </button>
               </div>
             </li>
           ))}

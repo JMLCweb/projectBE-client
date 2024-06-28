@@ -20,7 +20,7 @@ const AddProductForm = ({ onSave, onCancel, fetchProducts }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("http://localhost:3000/products", formData);
+      await api.post("http://localhost:3000/products/add", formData);
       fetchProducts();
       onSave();
     } catch (error) {

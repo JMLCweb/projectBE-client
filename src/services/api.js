@@ -63,7 +63,7 @@ const api = {
   updateOrderStatus: async (userId, orderId, updatedData) => {
     try {
       const response = await api.put(
-        `http://localhost:3000/orders/${userId}/${orderId}`,
+        `http://localhost:3000/orders/update/${orderId}`,
         updatedData
       );
       return response;

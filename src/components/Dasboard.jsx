@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import AdminList from "./admin/AdminList";
 import "./dashboard.css";
 import "./spinner.css";
@@ -35,18 +34,6 @@ const DashboardAdmin = () => {
     setLoading(false);
   };
 
-  const HandleUsers = () => {
-    navigate("/users");
-  };
-
-  const handleOrders = () => {
-    navigate("/orders");
-  };
-
-  const handleProducts = () => {
-    navigate("/products");
-  };
-
   useEffect(() => {
     checkAuth();
   }, []);
@@ -72,11 +59,11 @@ const DashboardAdmin = () => {
   return (
     <div className="home">
       <h1>Dashboard</h1>
-      <h2>Welcome to the Dashboard</h2>
-      <button onClick={HandleUsers}>Users</button>
-      <button onClick={handleOrders}>Orders</button>
-      <button onClick={handleProducts}>Products</button>
-
+      <p className="intro">
+        Welcome to the Admin Dashboard.
+        <br></br>Here, you can manage users, view orders, and handle all
+        administrative tasks to ensure the smooth operation of our platform.
+      </p>
       <AdminList />
     </div>
   );
