@@ -60,7 +60,7 @@ const api = {
     }
   },
 
-  updateOrderStatus: async (userId, orderId, updatedData) => {
+  updateOrderStatus: async (orderId, updatedData) => {
     try {
       const response = await api.put(
         `http://localhost:3000/orders/update/${orderId}`,
@@ -72,12 +72,6 @@ const api = {
     }
   },
 
-  deleteOrder: async (orderId) => {
-    const response = await api.delete(
-      `http://localhost:3000/orders/${orderId}`
-    );
-    return response;
-  },
   moveOrderToHistory: async (userId, order, orderId) => {
     const response = await api.post(
       `http://localhost:3000/orders/${userId}/${orderId}`,
@@ -85,6 +79,7 @@ const api = {
     );
     return response;
   },
+
   addToCart: async (userId, product) => {
     const response = await api.post(`http://localhost:3000/cart/${userId}`, {
       product,

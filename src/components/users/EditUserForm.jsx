@@ -14,7 +14,7 @@ const EditUserForm = ({ user, onSave, onCancel, fetchUsers }) => {
       setFormData({
         name: user.name,
         email: user.email,
-        password: "", // A senha não é carregada por razões de segurança, o admin deve inserir uma nova se quiser mudar
+        password: "",
       });
     }
   }, [user]);
@@ -46,7 +46,7 @@ const EditUserForm = ({ user, onSave, onCancel, fetchUsers }) => {
       <form className="edit-user-form" onSubmit={handleSubmit}>
         <h3>Edit User</h3>
         <label>
-          Name:
+          New Name for User:
           <input
             type="text"
             name="name"
@@ -55,7 +55,7 @@ const EditUserForm = ({ user, onSave, onCancel, fetchUsers }) => {
           />
         </label>
         <label>
-          Email:
+          New Email for User:
           <input
             type="email"
             name="email"
@@ -64,7 +64,7 @@ const EditUserForm = ({ user, onSave, onCancel, fetchUsers }) => {
           />
         </label>
         <label>
-          Password:
+          New Password for User:
           <input
             type="password"
             name="password"
@@ -72,11 +72,12 @@ const EditUserForm = ({ user, onSave, onCancel, fetchUsers }) => {
             onChange={handleChange}
           />
         </label>
-
-        <button type="submit">Save</button>
-        <button type="button" onClick={onCancel}>
-          Cancel
-        </button>
+        <div>
+          <button type="submit">Save User</button>
+          <button type="button" onClick={onCancel}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

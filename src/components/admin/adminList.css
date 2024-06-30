@@ -21,7 +21,7 @@
 }
 
 .admin-list li {
-  flex: 1 1 calc(33.333% - 30px); /* Adjust the width based on the number of items per row */
+  flex: 1 1 calc(33.333% - 30px);
   box-sizing: border-box;
   background-color: #ffffff;
   padding: 15px;

@@ -83,10 +83,12 @@ const EditProductForm = ({ product, onSave, onCancel, fetchProducts }) => {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Save</button>
-        <button type="button" onClick={onCancel}>
-          Cancel
-        </button>
+        <div>
+          <button type="submit">Save</button>
+          <button type="button" onClick={onCancel}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

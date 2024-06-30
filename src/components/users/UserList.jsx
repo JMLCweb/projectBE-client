@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import EditUserForm from "./EditUserForm";
 import api from "../../services/api";
-
+import { decodeToken } from "../../services/jwtUtils";
+import { useNavigate } from "react-router-dom";
 import "./UserList.css";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const fetchUsers = async () => {
     try {
@@ -18,8 +21,25 @@ const UserList = () => {
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setErrorMessage("You must be logged in to access this page.");
+        return;
+      }
+
+      const decodedToken = decodeToken(token);
+      if (!decodedToken || decodedToken.role !== "admin") {
+        setErrorMessage("You do not have permission to access this page.");
+        return;
+      }
+
+      setErrorMessage("");
+      fetchUsers();
+    };
+
+    checkAuth();
+  }, [navigate]);
 
   const handleEdit = (user) => {
     setEditingUser(user);
@@ -36,7 +56,7 @@ const UserList = () => {
 
   const handleDelete = async (userId) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this User?"
     );
     if (confirmDelete) {
       try {
@@ -47,6 +67,15 @@ const UserList = () => {
       }
     }
   };
+
+  if (errorMessage) {
+    return (
+      <div>
+        <h2>User List</h2>
+        <h2 className="error-message">{errorMessage}</h2>;
+      </div>
+    );
+  }
 
   return (
     <div className="user-list-container">
@@ -60,7 +89,6 @@ const UserList = () => {
         Use the "Edit" button to modify user information or the "Delete" button
         to remove a user from the system.
       </p>
-
       {editingUser ? (
         <EditUserForm
           user={editingUser}
@@ -73,58 +101,53 @@ const UserList = () => {
           {users.map((user) => (
             <li key={user._id}>
               <div>
-                <h3>{user.name}</h3>
-                <p>{user.email}</p>
-                <h4>Cart:</h4>
+                <h3>Name: {user.name}</h3>
+                <p>Email: {user.email}</p>
+                <h4>User Cart:</h4>
                 {user.cart && user.cart.length > 0 ? (
                   <ul>
-                    {user.cart.map((cartItem, cartIndex) => (
-                      <li key={`${cartItem.productId}-${cartIndex}`}>
-                        Product ID: {cartItem.productId} - Quantity:
-                        {cartItem.quantity}
+                    {user.cart.map((item, index) => (
+                      <li key={`${item.productId}-${index}`}>
+                        <p>Product ID: {item.productId}</p>
+                        <p>Name: {item.name}</p>
+                        <p>Price: {item.price} $</p>
+                        <p>Quantity: {item.quantity} items.</p>
                       </li>
                     ))}
                   </ul>
                 ) : (
                   <p>Cart is empty</p>
                 )}
-                <h4>Orders:</h4>
-                {user.orders && user.orders.length > 0 ? (
+                <h4>Completed Orders:</h4>
+                {user.ordersHistory && user.ordersHistory.length > 0 ? (
                   <ul>
-                    {user.orders.map((order, orderIndex) => (
-                      <li key={order._id || orderIndex}>
+                    {user.ordersHistory.map((order, index) => (
+                      <li key={order._id || index}>
                         <p>
                           Order Date:
                           {new Date(order.orderDate).toLocaleString()}
                         </p>
-                        <p>Status: {order.status}</p>
-                        <h5>Items:</h5>
-                        <ul>
-                          {order.items.map((item, itemIndex) => (
-                            <li key={`${item.productId}-${itemIndex}`}>
-                              Product ID: {item.productId}, Quantity:
-                              {item.quantity}
-                            </li>
-                          ))}
-                        </ul>
+                        <p>Total Price: {order.totalPrice} $</p>
                       </li>
                     ))}
                   </ul>
                 ) : (
                   <p>No orders</p>
                 )}
-                <button
-                  className="edit-button"
-                  onClick={() => handleEdit(user)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="delete-button"
-                  onClick={() => handleDelete(user._id)}
-                >
-                  Delete
-                </button>
+                <div className="user-buttons">
+                  <button
+                    className="edit-button"
+                    onClick={() => handleEdit(user)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDelete(user._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </li>
           ))}

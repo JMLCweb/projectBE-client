@@ -1,11 +1,11 @@
 .home {
-  font-family: Arial, sans-serif;
   text-align: center;
+  padding: 40px;
 }
 .intro {
   font-size: 20px;
-  text-align: center;
   margin-bottom: 20px;
+  padding: 20px;
   color: #fdf7f7;
 }
 

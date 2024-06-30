@@ -39,49 +39,53 @@ const AddProductForm = ({ onSave, onCancel, fetchProducts }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>Add Product</h3>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Description:
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Price:
-        <input
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Image URL:
-        <input
-          type="text"
-          name="image"
-          value={formData.image}
-          onChange={handleChange}
-        />
-      </label>
-      <button type="submit">Save</button>
-      <button type="button" onClick={handleCancel}>
-        Cancel
-      </button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <h3>Add Product</h3>
+        <label>
+          Product Name:
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Product Description:
+          <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Product Price:
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Image URL:
+          <input
+            type="text"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+          />
+        </label>
+        <div>
+          <button type="submit">Save Product</button>
+          <button type="button" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

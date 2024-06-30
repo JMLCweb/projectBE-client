@@ -1,8 +1,8 @@
 .user-list-container {
   max-width: 1200px;
-  margin: 0 auto;
   border-radius: 8px;
   max-width: 1200px;
+  padding: 40px;
 }
 
 .user-list-container h2 {
@@ -21,12 +21,11 @@
 }
 
 .user-list li {
-  flex: 1 1 calc(33.333% - 30px); /* Ajuste a largura com base no número de itens por linha */
+  flex: 1 1 calc(33.333% - 30px);
   box-sizing: border-box;
   background-color: #ffffff;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -39,22 +38,16 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.user-list li div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .user-list li h3 {
   margin: 0;
   font-size: 1.2em;
-  color: #333;
+  color: #000000;
   font-weight: 500;
 }
 
 .user-list li p {
   margin: 5px 0;
-  color: #666;
+  color: #5d3be7;
 }
 
 .user-list li h4 {
@@ -70,12 +63,11 @@
   flex-direction: column;
 }
 
-.user-list li ul li {
-  background-color: #544c4c;
-  padding: 10px;
-  margin-bottom: 5px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+.user-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .user-list li button {

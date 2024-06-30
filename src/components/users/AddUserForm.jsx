@@ -47,7 +47,7 @@ const AddUserForm = ({ onSave, onCancel, fetchUsers }) => {
           onChange={handleChange}
         />
       </label>
-      <button type="submit">Save</button>
+      <button type="submit">Add User</button>
       <button type="button" onClick={onCancel}>
         Cancel
       </button>

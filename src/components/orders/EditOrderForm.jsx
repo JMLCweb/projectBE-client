@@ -15,7 +15,7 @@ const EditOrderForm = ({ order, onSave, onCancel, error }) => {
         <h2>Edit Order</h2>
         {error && <p className="error-message">{error}</p>}
         <label>
-          Status:
+          Order Status:
           <select value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="pending">Pending</option>
             <option value="processing">Processing</option>
@@ -24,18 +24,20 @@ const EditOrderForm = ({ order, onSave, onCancel, error }) => {
           </select>
         </label>
         <label>
-          Notes:
+          Order Notes:
           <textarea
             className="notes"
             type="text"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
+          <div>
+            <button onClick={handleSave}>Save Order</button>
+            <button className="cancel" onClick={onCancel}>
+              Cancel
+            </button>
+          </div>
         </label>
-        <button onClick={handleSave}>Save</button>
-        <button className="cancel" onClick={onCancel}>
-          Cancel
-        </button>
       </div>
     </div>
   );

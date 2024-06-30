@@ -7,7 +7,7 @@ import "./spinner.css";
 const DashboardAdmin = () => {
   const [error, setError] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true); // State to manage loading
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const checkAuth = () => {
@@ -16,12 +16,12 @@ const DashboardAdmin = () => {
       setTimeout(() => {
         setError("No token provided. Please log in.");
         setLoading(false);
-      }, 1000); // Delay of 1 second
+      }, 2000);
       return;
     }
 
     try {
-      const user = JSON.parse(atob(token.split(".")[1])); // Decode JWT
+      const user = JSON.parse(atob(token.split(".")[1]));
       if (user.role !== "admin") {
         setError("You are not authorized to view this page.");
         setLoading(false);

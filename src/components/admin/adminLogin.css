@@ -1,51 +1,44 @@
 .admin-login-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #504b4b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
 }
 
-.admin-login-container h2 {
-  margin-bottom: 20px;
-  font-size: 1.5em;
+form {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+h2 {
   text-align: center;
 }
 
-.admin-login-container input[type="email"],
-.admin-login-container input[type="password"] {
+input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-.admin-login-container button[type="submit"] {
+.login-button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.admin-login-container button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-.admin-login-container .register-link {
-  text-align: center;
-}
-
-.admin-login-container .register-link a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.admin-login-container .register-link a:hover {
-  text-decoration: underline;
+button:hover {
+  background-color: #ffffff;
+  color: black;
 }

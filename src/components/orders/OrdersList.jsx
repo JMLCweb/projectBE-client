@@ -29,7 +29,9 @@ const OrdersList = () => {
 
   const handleSaveEditOrder = async (userId, orderId, { status, notes }) => {
     try {
-      await api.updateOrderStatus(userId, orderId, { status, notes });
+      const updatedData = { status, notes };
+
+      await api.updateOrderStatus(orderId, updatedData);
       if (status === "completed") {
         await moveOrderToHistory(userId, orderId);
       }
@@ -46,11 +48,11 @@ const OrdersList = () => {
 
   const handleDeleteOrder = async (orderId) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this order?"
     );
     if (confirmDelete) {
       try {
-        await api.deleteOrder(orderId);
+        await api.delete(`http://localhost:3000/orders/delete/${orderId}`);
         fetchOrders();
       } catch (error) {
         console.error("Error deleting order:", error);
@@ -105,16 +107,44 @@ const OrdersList = () => {
           <li key={order._id}>
             <div>
               <h3>Order ID: {order._id}</h3>
-              <h4>Status: {order.status}</h4>
-              <h4>Notes: {order.notes}</h4>
+              <h2>Status: {order.status}</h2>
+              <h3>Order Date: {new Date(order.orderDate).toLocaleString()}</h3>
               <h5>Items:</h5>
               <ul>
                 {order.items.map((item, index) => (
                   <li key={`${item.productId}-${index}`}>
-                    Product ID: {item.productId}, Quantity: {item.quantity}
+                    Product ID: {item.productId}
+                    <br></br>
+                    Name: {item.name}
+                    <br></br>
+                    Price: {item.price} $<br></br>
+                    Quantity: {item.quantity} items
+                    <br></br>
                   </li>
                 ))}
               </ul>
+              <h4>
+                Send To:
+                <p>{order.country}</p>
+              </h4>
+              <h4>
+                Adress:
+                <p>{order.address}</p>
+              </h4>
+              <h4>
+                Zip-Code:
+                <p>{order.zipcode}</p>
+              </h4>
+              <h4>
+                Payment Method:
+                <p>{order.paymentMethod}</p>
+              </h4>
+              <h4>Notes: {order.notes}</h4>
+              <h3>
+                Total Price:
+                <br></br>
+                {order.totalPrice}$
+              </h3>
               <button
                 className="edit-button"
                 onClick={() => handleEditOrder(order)}

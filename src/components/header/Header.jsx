@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { decodeToken } from "../../services/jwtUtils";
 import NavBar from "../navBar/navBar";
+import logo from "../../assets/logo.png";
+
 import "./header.css";
 
 const Header = () => {
@@ -11,7 +13,7 @@ const Header = () => {
   useEffect(() => {
     const decodedToken = decodeToken();
     setIsLoggedIn(!!decodedToken);
-  }, [setIsLoggedIn]);
+  }, []);
 
   const handleLogin = () => {
     navigate("/admin/login");
@@ -29,18 +31,18 @@ const Header = () => {
   };
 
   return (
-    <div className="header-container">
+    <header className="header-container">
       <div className="header">
-        <ul>
-          {!isLoggedIn && (
+        <img src={logo} alt="Logo" className="header-logo" />
+        <ul className="header-menu">
+          {!isLoggedIn ? (
             <li>
-              <button onClick={handleLogin}>SignIn/Up</button>
+              <button onClick={handleLogin}>Admin Login</button>
             </li>
-          )}
-          {isLoggedIn && (
+          ) : (
             <>
               <li>
-                <button onClick={handleDash}>AdminDash</button>
+                <button onClick={handleDash}>Admin Dashboard</button>
               </li>
               <li>
                 <button onClick={handleLogout}>Logout</button>
@@ -50,7 +52,7 @@ const Header = () => {
         </ul>
       </div>
       {isLoggedIn && <NavBar />}
-    </div>
+    </header>
   );
 };
 

@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import EditProductForm from "./EditProductForm";
 import AddProductForm from "./AddProductForm";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { decodeToken } from "../../services/jwtUtils";
 import "./productList.css";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [addingProduct, setAddingProduct] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const fetchProducts = async () => {
     try {
@@ -24,8 +28,25 @@ const ProductList = () => {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setErrorMessage("You must be logged in to access this page.");
+        return;
+      }
+
+      const decodedToken = decodeToken(token);
+      if (!decodedToken || decodedToken.role !== "admin") {
+        setErrorMessage("You do not have permission to access this page.");
+        return;
+      }
+
+      setErrorMessage("");
+      fetchProducts();
+    };
+
+    checkAuth();
+  }, [navigate]);
 
   const handleEdit = (product) => {
     setEditingProduct(product);
@@ -66,6 +87,15 @@ const ProductList = () => {
       }
     }
   };
+
+  if (errorMessage) {
+    return (
+      <div>
+        <h2>Products List</h2>
+        <h2 className="error-message">{errorMessage}</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="page-container">

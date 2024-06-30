@@ -1,8 +1,6 @@
 .product-list-container {
   border-radius: 8px;
   text-align: center;
-  width: 100%;
-  max-width: 1200px;
 }
 
 .product-list-container h2 {
@@ -27,8 +25,7 @@
 }
 
 .product-list li {
-  flex: 1 1 calc(33.333% - 30px); /* Adjust the width based on the number of items per row */
-  box-sizing: border-box;
+  flex: 1 1 calc(33.333% - 30px);
   background-color: #ffffff;
   padding: 15px;
   border-radius: 8px;

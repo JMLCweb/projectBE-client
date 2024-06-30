@@ -9,7 +9,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-  z-index: 1; /* Coloca o formulário na frente */
+  z-index: 1;
 }
 select {
   color: rgb(255, 255, 255);

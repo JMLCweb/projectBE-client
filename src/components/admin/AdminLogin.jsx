@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import AdminRegister from "./AdminRegister";
 import { useNavigate } from "react-router-dom";
-import "./adminLogin.css"; // Importe o arquivo CSS aqui
+import "./adminLogin.css";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -39,6 +38,11 @@ const AdminLogin = () => {
     <div className="admin-login-container">
       <form onSubmit={handleLogin}>
         <h2>Admin Login</h2>
+        <p className="intro">
+          Welcome to the Admin Panel. Please log in with your credentials to
+          access the admin features and manage the system. If you don't have an
+          account, please contact Administration.
+        </p>
         <input
           type="email"
           value={email}
@@ -53,11 +57,10 @@ const AdminLogin = () => {
           placeholder="Password"
           required
         />
-        <button type="submit">Login</button>
+        <button className="login-button" type="submit">
+          Login
+        </button>
       </form>
-      <div className="register-link">
-        <AdminRegister></AdminRegister>
-      </div>
     </div>
   );
 };
