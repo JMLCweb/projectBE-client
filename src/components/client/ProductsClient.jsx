@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
-import "./productList.css"; // Importar o arquivo CSS
-
+import "./productList.css";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
